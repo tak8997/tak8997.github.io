@@ -30,7 +30,39 @@ mvvm 아키텍처는 모바일 개발에서 가장 대중적으로 사용되는 
     }
 
 그 다음으로, 해당 뷰(여기서는 R.layout.activity_main)의 xml코드로 가본다.
+    <layout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+        <data>
+            <import type="android.view.View"/>
 
+            <variable name="view" type="com.github.tak8997.mymovie.MainActivity"/>
+            <variable name="viewModel" type="com.github.tak8997.mymovie.MainViewModel"/>
+        </data>
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_blue_rectangle_gradient">
+
+                    <ImageView
+                            android:id="@+id/img_poster"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/img_poster"
+                            android:layout_margin="@dimen/_10dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
 
 보시는 바와 같이 최상단에 layout태그로 감싸게 되고 data와 view의 요소가 나온다. data태그 영역을 보면, viewmodel을 활용할 것이기 때문에, 위와 같이 선언되어 있다. 
 
