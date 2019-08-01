@@ -22,10 +22,10 @@ mvvm 아키텍처는 모바일 개발에서 가장 대중적으로 사용되는 
 
  먼저, 빌드 환경구성을 해보자.
 
+.......
 android {
 
-.......
-
+  
     dataBinding {
 
             enabled = true
@@ -50,7 +50,6 @@ viewmodel에 이벤트를 주면, 바인딩 된 xml에서 값을 읽어서 뷰�
 뷰에 셀력션을 주기 위해 이렇게 정의하였다. 이제 viewModel.like에 이벤트가 발생하면, 그 값을 읽어들여와서 뷰에 상태를 가해주는 것이다. 이 과정을 통해 추측해보면, BindingAdapter를 통해 내가 원하는 방식으로 뷰에 어떤 값을 전달해 줄 있는 것이다.
 
 public MutableLiveData<Boolean> like = new MutableLiveData<>();
-
 
 
 public void onClick(View view) {
