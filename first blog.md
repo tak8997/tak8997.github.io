@@ -30,10 +30,10 @@ mvvm 아키텍처는 모바일 개발에서 가장 대중적으로 사용되는 
     }
 
 그 다음으로, 해당 뷰(여기서는 R.layout.activity_main)의 xml코드로 가본다.
-    <layout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
-        <data>
-            <import type="android.view.View"/>
+        <layout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+            <data>
+                <import type="android.view.View"/>
 
             <variable name="view" type="com.github.tak8997.mymovie.MainActivity"/>
             <variable name="viewModel" type="com.github.tak8997.mymovie.MainViewModel"/>
