@@ -22,18 +22,12 @@ mvvm 아키텍처는 모바일 개발에서 가장 대중적으로 사용되는 
 
  먼저, 빌드 환경구성을 해보자.
 
-
-android {
-
-    .......
-
-    dataBinding {
-
-            enabled = true
-
+    android {
+        .......
+        dataBinding {
+             enabled = true
+        }
     }
-
-}
 
 그 다음으로, 해당 뷰(여기서는 R.layout.activity_main)의 xml코드로 가본다.
 
