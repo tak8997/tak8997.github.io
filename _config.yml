@@ -296,3 +296,5 @@ defaults:
       related: true
       
       remote_theme : mmistakes/minimal-mistakes
+
+theme: jekyll-theme-minimal
