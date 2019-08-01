@@ -30,6 +30,7 @@ mvvm 아키텍처는 모바일 개발에서 가장 대중적으로 사용되는 
     }
 
 그 다음으로, 해당 뷰(여기서는 R.layout.activity_main)의 xml코드로 가본다.
+
         <layout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto">
             <data>
@@ -68,10 +69,38 @@ mvvm 아키텍처는 모바일 개발에서 가장 대중적으로 사용되는 
 
 viewmodel에 이벤트를 주면, 바인딩 된 xml에서 값을 읽어서 뷰를 업데이트 하게 된다. 코드를 보도록 하자.
 
+      <ImageView
+              android:id="@+id/img_like"
+              android:layout_width="16dp"
+              android:layout_height="wrap_content"
+              android:src="@drawable/selector_like"
+              android:layout_marginTop="@dimen/_20dp"
+              android:onClick="@{viewModel::onClick}"
+              app:viewSelected="@{viewModel.like}"
+              app:layout_constraintLeft_toLeftOf="@+id/tv_running_time"
+              app:layout_constraintBottom_toBottomOf="@+id/img_poster"
+              app:layout_constraintTop_toBottomOf="@+id/tv_running_time"/>
+
+      <TextView
+              style="@style/MediumText.White"
+              android:id="@+id/tv_like_count"
+              android:text="16"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/_2dp"
+              android:layout_marginTop="@dimen/_2dp"
+              app:text="@{viewModel.like}"
+              app:layout_constraintLeft_toRightOf="@+id/img_like"
+              app:layout_constraintTop_toTopOf="@+id/img_like"/>
 
 위 코드를 보면 app:viewSelected="@{viewModel.like}", app:text="@{viewModel.like}" 부분을 볼 수 있다. 이 부분은 바인딩 된 뷰 모델로 부터 이벤트가 발생하면(viewModel.like, viewModel.hate),  그 값을 읽어들여 ui를 갱신 하는 것이다. 
 
  어떻게 갱신할 것인지 알아보기 위해 app:viewSelected를 조금 더 구체적으로 살펴보자. 
+ 
+    @BindingAdapter("viewSelected")
+    public static void viewSelected(View view, boolean selected) {
+        view.setSelected(selected);
+    }
 
 
 뷰에 셀력션을 주기 위해 이렇게 정의하였다. 이제 viewModel.like에 이벤트가 발생하면, 그 값을 읽어들여와서 뷰에 상태를 가해주는 것이다. 이 과정을 통해 추측해보면, BindingAdapter를 통해 내가 원하는 방식으로 뷰에 어떤 값을 전달해 줄 있는 것이다.
@@ -90,6 +119,20 @@ viewmodel에 이벤트를 주면, 바인딩 된 xml에서 값을 읽어서 뷰�
 
 마지막으로, MainActivity를 가보자.
 
+    public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+        private ActivityMainBinding binding;
+        private MainViewModel viewModel;
+        private CommentAdapter commentAdapter = new CommentAdapter();
+
+        @Override
+        protected void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+            binding.setLifecycleOwner(this);
+            viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+            binding.setVariable(BR.view, this);
+            binding.setVariable(BR.viewModel, viewModel);
 
 뷰모델과 데이터 바인딩이 제대로 동작하기 위한 코드이다. 위와 같이 xml에 layout 태그를 달아주고 다시 빌드를 해주면 위와 같이 ActivityMainBinding이 생성됩니다. 생성 방식은 layout file 이름에 기초합니다. 이렇게 함으로써, layout태그에 정의 된 변수들에 접근할 수 있습니다. 여기서 binding.setVariable()을 통해 뷰와 뷰모델을 set해주었는데, 이럴 필요 없이 binding.setView(), binding.setViewModel()을 통해 set해주셔도 됩니다. 
 
