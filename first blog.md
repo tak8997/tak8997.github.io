@@ -22,10 +22,11 @@ mvvm 아키텍처는 모바일 개발에서 가장 대중적으로 사용되는 
 
  먼저, 빌드 환경구성을 해보자.
 
-.......
+
 android {
 
-  
+    .......
+
     dataBinding {
 
             enabled = true
