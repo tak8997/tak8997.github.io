@@ -44,22 +44,15 @@ viewmodel에 이벤트를 주면, 바인딩 된 xml에서 값을 읽어서 뷰�
 
 뷰에 셀력션을 주기 위해 이렇게 정의하였다. 이제 viewModel.like에 이벤트가 발생하면, 그 값을 읽어들여와서 뷰에 상태를 가해주는 것이다. 이 과정을 통해 추측해보면, BindingAdapter를 통해 내가 원하는 방식으로 뷰에 어떤 값을 전달해 줄 있는 것이다.
 
-public MutableLiveData<Boolean> like = new MutableLiveData<>();
-
-
-public void onClick(View view) {
-
-        switch (view.getId()) {
-
+    public MutableLiveData<Boolean> like = new MutableLiveData<>();
+    
+    public void onClick(View view) {
+          switch (view.getId()) {
                 case R.id.img_like:
-
                 like.setValue(!view.selected);
-
                 break;
-
-        }
-
-}
+          }
+    }
 
 뷰모델에서는 LiveData를 활용하여 구성하였다. 기존의 ObservableField를 사용하지 않은 이유는 LiveData를 활용하면 라이프싸이클 감지하는 효과를 볼 수 있기 때문이다. 그래서 얻게 되는 장점은 여기서 설명하지는 않겠습니다..
 
