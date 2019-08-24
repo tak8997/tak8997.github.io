@@ -92,6 +92,41 @@ Provider<ViewModel>(provider : 의존성 주입 클래스를 제공하고 이를
 이렇게 되어있는데, @MapKey는 'KClass<out ViewModel> 객체를 키 타입으로 한다' 정도로 알면 되겠습니다.
 여기서는 MainViewModel.class가 Key로 Provider<MainViewModel>이 Value가 될 것 입니다.
 
+그럼 이제 다시 ViewModelProvider.Factory.create() 메소드를 자세히 관찰해 볼 수 있습니다. create(modelClass: Class<T>) 의 modelClass
+를 통해서 우리는 Provider객체를 가져올 수 있습니다.
+
+    var creator: Provider<out ViewModel>? = creators[modelClass]
+    
+이렇게요. 만약에 Provider가 존재하지 않는다면 해당 ViewModel의 하위 클래스에 Provider객체가 존재하는지를 찾습니다.
+그게 아래 부분입니다.
+
+    if (creator == null) {
+        for ((key, value) in creators) {
+            if (modelClass.isAssignableFrom(key)) {
+                creator = value
+                break
+            }
+        }
+    }
+  
+이 과정 후에도 찾지 못한다면
+
+    if (creator == null) {
+        throw new IllegalArgumentException("unknown model class " + modelClass);
+    }
+    
+요 부분이 실행되어 exception을 던집니다.
+그리고 값이 존재한다면, 마지막으로
+
+    try {
+        return (T) creator.get();
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
+    
+이 부분으로 와서 Provder의 get()을 통해 우리가 원하는 ViewModel 타입을 얻을 수 있습니다.
+
+여기까지 설명을 마무리합니다. 내용이 쉽지 않아서 블로그 글도 리팩토링이 좀 더 필요할 거 같습니다.
 
 
 
