@@ -1,4 +1,4 @@
-#Android 'LaunchMode'
+# Android 'LaunchMode'
 
 안드로이드 런치 모드에 대해서 정리해보자
 
