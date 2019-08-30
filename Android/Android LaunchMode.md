@@ -2,9 +2,10 @@
 
 안드로이드 런치 모드에 대해서 정리해보자
 
+
 ## 1.singleTop (Activity D에 적용)
 1) Activity Stack 맨 위에 D가 있다고 가정
- - D Activity 호출 시 onNewIntent 호출. 즉, 새로 호출 되지 않음
+- D Activity 호출 시 onNewIntent 호출. 즉, 새로 호출 되지 않음
 
 2) Activity Stack 맨 위에 C가 있다고 가정
  - D Activity 호출 시 onCreate 호출. 즉, 그냥 새로운 엑티비티 호출
@@ -40,6 +41,8 @@
  
 ## 4.standard (Activity B에 적용)
 그냥 새로 생성
+
+
 
 글을 보면서 아래 블로그 그림을 되새기자
  
