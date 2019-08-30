@@ -12,7 +12,7 @@
 3) Activity Stack 맨 위부터 C -> D .. 있다고 가정
  - D Activity 호출 시 onCreate호 호출. 즉, 그냥 새로운 엑티비티 호출
  
-결국, singleTop은 호출하고자 하는 Activity가 Stackk내에서 반드시 맨 위에 존재해야만 onNewIntent가 호출됨.
+결국, singleTop은 호출하고자 하는 Activity가 Stack내에서 반드시 맨 위에 존재해야만 onNewIntent가 호출됨.
 그렇지 않으면, 그냥 새로운 생성.
 
 
