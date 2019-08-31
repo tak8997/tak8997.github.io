@@ -1,0 +1,85 @@
+# 수신객체 지정 람다
+
+평소에 자주 쓰지만 헷갈리는 수신객체 지정 람다를 한번 정리하고 가보자.
+종류로는 with, apply, run, with, let이 있다.
+
+## let을 통해 알아보자
+
+    class MyClass {
+        fun test() {
+            val str: String = "...."
+            
+            val result = str.let {
+                print(this) // Receiver
+                print(it)   // Argument
+                42          // Block return value
+            }
+        }
+    }
+
+Receiver(this)는 this@MyClass이다. 애매하게 알면, this가 String(...)이라고 착각할 수 있을 것 같다. 그래서 이럴땐 
+함수의 정의를 살펴보고 가면 좋을 것 같다.
+
+    public inline fun <T, R> T.let(block: (T) -> R): R {
+        return block(this)
+    }
+
+암시적으로 받은 매개변수 T를 확장하고 있지 않다. 당연히 this는 MyClass이다. 또한, 람다식 block(this)로 들어온 값을 
+it을 사용해서 코드를 간략하게 할 수 있다. 
+
+    class MyClass {
+        fun test() {
+            val str: String = "..."
+            val result = str.xxx {
+                print(this) // Receiver
+                print(it)   // Argument
+                42          // Block return value
+            }
+        }
+    }
+    
+ xxx에 따른 변화를 표로 정리해보면 다음과 같다.
+╔══════════╦═════════════════╦═══════════════╦═══════════════╗
+║ Function ║ Receiver (this) ║ Argument (it) ║    Result     ║
+╠══════════╬═════════════════╬═══════════════╬═══════════════╣
+║ let      ║ this@MyClass    ║ String("...") ║ Int(42)       ║
+║ run      ║ String("...")   ║ N\A           ║ Int(42)       ║
+║ run*     ║ this@MyClass    ║ N\A           ║ Int(42)       ║
+║ with*    ║ String("...")   ║ N\A           ║ Int(42)       ║
+║ apply    ║ String("...")   ║ N\A           ║ String("...") ║
+║ also     ║ this@MyClass    ║ String("...") ║ String("...") ║
+╚══════════╩═════════════════╩═══════════════╩═══════════════╝
+
+## 이 표와 정의를 보며 apply를 먼저 살펴보자.
+
+    public inline fun <T> T.apply(block: T.() -> Unit): T {
+        block()
+        return this
+    }
+
+보통 Intent(), Bundle()을 통해 값을 넘길 때 자주 썼다.
+
+    Intent().apply { 
+        putExtra()
+    } 
+    
+이런식으로 말이다. putExtra()를 바로 쓸 수 있는 이유는 표와 정의를 통해 유추할 수 있듯이
+Receiver가 Intent이기 때문이다. 원형을 통해서도 알아볼 수 있다. T를 확장했기 때문에 this는 Intent 객체이다.
+그래서 바로 객체의 메소드나 프로퍼티에 접근할 수 있다. 그리고 Intent자신을 return 한다.
+
+## 그 다음으로 also를 보자
+
+    public inline fun <T> T.also(block: (T) -> Unit): T {
+        block(this)
+        return this
+    }
+    
+정의를 보면 let과 비슷하면들이 좀 있다. 하지만 마지막 return 값은 this이다. 
+즉, 수신객체 자신을 그대로 다시 retrun. 예를들어,
+
+    val person: Person = getPerson().also {
+        print(it.name)
+        print(it.age)
+    }
+    
+이렇게 말이다. let과 마찬가지로 block(this)이니 인자 값을 받을 수 있고 it으로 표현할 수 있다.
