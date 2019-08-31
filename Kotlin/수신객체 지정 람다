@@ -25,7 +25,7 @@ Receiver(this)는 this@MyClass이다. 애매하게 알면, this가 String(...)�
     }
 
 암시적으로 받은 매개변수 T를 확장하고 있지 않다. 당연히 this는 MyClass이다. 또한, 람다식 block(this)로 들어온 값을 
-it을 사용해서 코드를 간략하게 할 수 있다. 
+it을 사용해서 코드를 간략하게 할 수 있다. 보통 safe-call이라고 해서 ?와 같이 쓰이는데, 굳이 여기서 말하지는 않겠다.
 
     class MyClass {
         fun test() {
@@ -44,7 +44,6 @@ it을 사용해서 코드를 간략하게 할 수 있다.
 ╠══════════╬═════════════════╬═══════════════╬═══════════════╣
 ║ let      ║ this@MyClass    ║ String("...") ║ Int(42)       ║
 ║ run      ║ String("...")   ║ N\A           ║ Int(42)       ║
-║ run*     ║ this@MyClass    ║ N\A           ║ Int(42)       ║
 ║ with*    ║ String("...")   ║ N\A           ║ Int(42)       ║
 ║ apply    ║ String("...")   ║ N\A           ║ String("...") ║
 ║ also     ║ this@MyClass    ║ String("...") ║ String("...") ║
@@ -82,4 +81,65 @@ Receiver가 Intent이기 때문이다. 원형을 통해서도 알아볼 수 있�
         print(it.age)
     }
     
-이렇게 말이다. let과 마찬가지로 block(this)이니 인자 값을 받을 수 있고 it으로 표현할 수 있다.
+이렇게 말이다. let과 마찬가지로 block(this)이니 인자 값을 받을 수 있고 it으로 표현할 수 있다. 
+조금 더 활용 예를 살펴보자면,
+
+    class Book(author: Person) {
+        val author = author.also {
+          requireNotNull(it.age)
+          print(it.name)
+        }
+    }
+    
+이런식으로 사용할 수 있다. 객체의 사이드 이펙트를 확인하거나 수신 객체 프로퍼티의 유효성 검사 할 때 유용하게 사용할 수 있다.
+
+## run을 살펴보도록 하자
+
+    public inline fun <T, R> T.run(block: T.() -> R): R {
+        return block()
+    }
+    
+호출하는 객체를 람다의 리시버로 전달하고, block의 결과값을 반환한다. 사용 예를 보도록 하자.
+
+    fun printAge(person: Person) = person.run {
+        // person 을 수신객체로 변환하여 age 값을 사용합니다.
+        print(age)
+    }
+    
+이런식으로 person을 수신객체로 변환하여 age값에 바로 전달 가능하다. 
+T를 확장했으므로, 즉, this는 person객체니깐 이렇게 바로 전달이 가능하다. 이 부분은 apply와의 공통점이라고 할 수 있다.
+또한, 이렇게 범위를 제한 하는 느낌으로 사용할 수도 있다.
+
+    val inserted: Boolean = run {
+        // person 과 personDao 의 범위를 제한 합니다.
+        val person: Person = getPerson()
+        val personDao: PersonDao = getPersonDao()
+        // 수행 결과를 반환 합니다.
+        personDao.insert(person)
+    }
+
+## 마지막으로 with를 보자
+
+    public inline fun <T, R> with(receiver: T, block: T.() -> R): R {
+        return receiver.block()
+    }
+    
+with는 예시와 같이 짧게 설명해보도록 하자. 위의 표를 통해서 보면 run과 차이가 없다. 그렇다면 무엇이 다를까?
+
+    val person: Person = getPerson()
+    with(person) {
+        print(name)
+        print(age)
+    }
+    
+차이점은 수신객체를 명시적으로 제공합니다. 위에서 with의 파리미터에 직접 넣어준 것 처럼.
+반면, run은 좀 전에 살펴봤듯이 암묵적으로 제공한다.
+
+
+이상으로 정리를 마치고, 앞으로 헷갈릴 때마다 저 표를 보고 되새기면서 상황에 맞게 앞으로도 잘 써보도록 하자
+
+참고링크 : 
+https://proandroiddev.com/the-difference-between-kotlins-functions-let-apply-with-run-and-else-ca51a4c696b8
+https://medium.com/the-kotlin-chronicle/lets-also-apply-a-run-with-kotlin-on-our-minds-56f12eaef5e3
+https://medium.com/@limgyumin/%EC%BD%94%ED%8B%80%EB%A6%B0-%EC%9D%98-apply-with-let-also-run-%EC%9D%80-%EC%96%B8%EC%A0%9C-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94%EA%B0%80-4a517292df29
+https://www.androidhuman.com/lecture/kotlin/2016/07/06/kotlin_let_apply_run_with/
