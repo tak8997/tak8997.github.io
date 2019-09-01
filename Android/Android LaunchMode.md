@@ -25,7 +25,7 @@ Task는 어플리케이션에서 실행되는 액티비티를 보관하고 관�
 
 ## 2.singleTask (Activity C에 적용)
 1) Activity Stack 맨 위부터 D -> C .. 있다고 가정
- - C Activity 호출 시 onNewIntent 호출. 
+ - C Activity 호출 시 onNewIntent 호출. 이 때, 위에 있는 D Activity를 Destroy시켜버린다.
  
 2) Activity Stack 맨 위부터 B -> A .. 있다고 가정
  - C Activity 호출 시 onCreate 호출.
