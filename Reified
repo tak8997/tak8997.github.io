@@ -1,0 +1,103 @@
+# Reifed
+
+reified - '실체화한' 이라는 의미이다.
+
+바로 예를 들어가며 설명해보자. 만약 startActivity를 시키는 공통 메소드를 만들고 싶다면, Class<T>를 사용해서 작성하게 될 수가 있다.
+아래 코드 처럼 말이다.
+
+    // Function
+    private fun <T : Activity> Activity.startActivity(
+        context: Context, 
+        clazz: Class<T>
+    ) {
+        startActivity(Intent(context, clazz))
+    }
+    // Caller
+    startActivity(context, NewActivity::class.java)
+    
+Reified를 사용하면 아래처럼 바꿀 수 있다.
+
+    // Function
+    inline fun <reified T : Activity> Activity.startActivity(context: Context) {
+        startActivity(Intent(context, T::class.java))
+    }
+    // Caller
+    startActivity<NewActivity>(context)
+    
+훨씬 간결해졌다. 
+다른 예로 조금 더 차근차근 살펴보도록 하겠다.
+
+    // Function
+    fun <T> Bundle.getDataOrNull(): T? {
+        return getSerializable(DATA_KEY) as? T
+    }
+    // Caller
+    val bundle: Bundle? = Bundle()
+    bundle?.putSerializable(DATA_KEY, "Testing")
+    val strData: String? = bundle?.getDataOrNull()
+    val intData: Int? = bundle?.getDataOrNull() // Crash
+    
+마지막 줄에서 볼 수 있듯이, 기대했던 타입이 아니면 크래쉬가 날 수 있다.
+그래서, 안전하게 데이터를 얻기 위해
+
+    // Function
+    fun <T> Bundle.getDataOrNull(clazz: Class<T>): T? {
+        val data = getSerializable(DATA_KEY)
+        return if (clazz.isInstance(data)) {
+            data as T
+        } else {
+            null
+        }
+    }
+    // Caller
+    val bundle: Bundle? = Bundle()
+    bundle?.putSerializable(DATA_KEY, "Testing")
+    val strData: String? = bundle?.getDataOrNull(String::class.java)
+    val intData: Int? = bundle?.getDataOrNull(String::class.java) //Null
+
+이렇게 작성할 수 있다. 하지만 이런 경우 일단 가독성도 떨어진다(지금이야 볼만 하지만 더 복잡해질 경우). 또한, reflection을 사용하게 된다. 
+T 타입을 컴파일 타임에만 접근할 수 있고 런타임에 직접 접근해서 사용할 수가 없기 때문이다. 런타임에 타입이 지워지기 떄문에(type erasure).
+
+아래와 같이 reified를 써서 바꿔보자.
+
+    // Function
+    private inline fun <reified T> Bundle.getDataOrNull(): T? {
+        return getSerializable(DATA_KEY) as? T
+    }
+    // Caller
+    val bundle: Bundle? = Bundle()
+    bundle?.putSerializable(DATA_KEY, "Testing")
+    val strData: String? = bundle?.getDataOrNull()
+    val intData: Int? = bundle?.getDataOrNull() // Null
+
+훨씬 간결해 진 것을 볼 수 있다. 물론 리플렉션도 사용하지 않았다. 
+그리고 reified와 같이 inline이 사용 된 것을 볼 수 있다. reified는 항상 inline과 같이 쓰인다.
+이렇게 같이 쓰면, 컴파일러는 이제 파라미터의 타입을 알고 일반 함수처럼 사용할 수 있다.
+이제 T 타입을 컴파일 타임과 런타임 모두 접근해서 사용할 수가 있다. 즉, 구체적인
+그 타입에 해당하는 바이트코드를 호출부에 직접 집어 넣었기때문에(inline덕분에).
+이제
+
+    val strData: String? = bundle?.getDataOrNull() 
+    val intData: Int? = bundle?.getDataOrNull() // Null
+    
+이 코드는 린타임에 
+
+    getSerializable(DATA_KEY) as? String
+    getSerializable(DATA_KEY) as? Int
+    
+가 바이트코드로 변환되어져 있는 것이다.
+
+
+reified를 써서 얻을 수 있는 이점 및 특징
+1. 가독성 향상
+2. reflection사용 안함. 그럼으로써 성능 향상
+3. inline과 같이 쓴다.
+
+   
+참고링크 :
+https://proandroiddev.com/how-reified-type-makes-kotlin-so-much-better-7ae539ed0304
+https://kotlinlang.org/docs/reference/inline-functions.html
+https://stackoverflow.com/questions/45949584/how-does-the-reified-keyword-in-kotlin-work
+    
+    
+    
