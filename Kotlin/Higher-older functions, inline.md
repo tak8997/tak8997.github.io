@@ -182,3 +182,9 @@ doSomethingElse의 코드가 doSomething()부분에 카피되어 삽입되어 �
 
 코드가 너무 커지고 여러곳에 많이 불리면 큰 코드 덩어리가 여러곳에 반복되어 삽입되어지게 된다.
 
+참조 :
+https://medium.com/@agrawalsuneet/higher-order-functions-in-kotlin-3d633a86f3d7
+https://blog.mindorks.com/understanding-inline-noinline-and-crossinline-in-kotlin
+
+다시 살펴보기 :
+https://blog.kotlin-academy.com/effective-kotlin-consider-inline-modifier-for-higher-order-functions-758afcaffc11
