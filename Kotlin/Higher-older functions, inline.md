@@ -1,4 +1,4 @@
-# Higher-order funtions, Inline, Reified
+# Higher-order funtions, Inline
 
 
 인라인 함수란 무엇일까?
