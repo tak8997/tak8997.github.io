@@ -72,3 +72,8 @@ reified는 타입 파라미터가 실행 시점에 지워지지 않음을 표시
 
 마지막, 주의할점.
 inline + reified 함수는 자바코드에서 호출할 수 없다.
+
+참고 :
+https://umbum.tistory.com/611
+https://stackoverflow.com/questions/45949584/how-does-the-reified-keyword-in-kotlin-work
+Kotlin in Action책
