@@ -75,7 +75,6 @@ inline + reified 함수는 자바코드에서 호출할 수 없다.
 
 참고 :
 https://umbum.tistory.com/611
-
 https://stackoverflow.com/questions/45949584/how-does-the-reified-keyword-in-kotlin-work
-
+https://proandroiddev.com/how-reified-type-makes-kotlin-so-much-better-7ae539ed0304?gi=ef46fca13ab4
 Kotlin in Action책
