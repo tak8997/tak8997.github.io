@@ -11,7 +11,7 @@ SparseArray는 HashMap보다 메모리 효율적으로 설계되었기 때문이
 그리고 그 안에는 Entry<K, V>[] table; 가 있다. 즉, Key값에는 객체만 들어간다.
 
 여기서 그 차이를 볼 수 있다. Map은 객체가 '키'로 들어가긴 때문에, auto-boxing이 들어간다. 
-그 다음 키 값이 객체가 된다든 것은 더 많은 메모리를 소요한다.
+키 값이 객체가 된다는 것은 더 많은 메모리를 소요한다.
 ex) Integer -> 16bytes
     int -> 4bytes
   
