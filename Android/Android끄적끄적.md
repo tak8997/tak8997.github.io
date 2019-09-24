@@ -34,5 +34,11 @@ init process에 의해 구동! 되고 -> zygote는 -> 핵심이 되는 android s
     }
 
 이러한 필드를 만들어 줘야 함(createFromParcel() -> unmarshalling과정). 여기서 구체적으로 <SomeObject>타입이 들어간 것을 볼 수 있음. 나중에 받는 쪽에서 intent.getParcelable("someObject") 할 때, 구체적인 타입을 받을 수 있음. 반면, Serializable을 통해서 구현하면, 받아와서 형 변환해야 함.
-getParcelable()의 리턴 타입은 <T extends Parcelable>이고, getSerializable()의 리턴 타입은 Serializable임.
+ 
+getParcelable()의 리턴 타입은 
+ 
+    <T extends Parcelable>
+    
+getSerializable()의 리턴 타입은 Serializable임.
+
  마지막으로, unmarshalling이 있으면, marshalling과정이 있어야 되는데, writeToParcel()을 통해 구현. 이 때 중요한 것은, unmarshalling할 때, marshalling(override fun writeToParcel(parcel: Parcel, flags: Int) {...})과정에서 쓴 순서와 동일하게 작성해 줘야함.
