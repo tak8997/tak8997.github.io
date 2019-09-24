@@ -41,4 +41,4 @@ getParcelable()의 리턴 타입은
     
 getSerializable()의 리턴 타입은 Serializable임.
 
- 마지막으로, unmarshalling이 있으면, marshalling과정이 있어야 되는데, writeToParcel()을 통해 구현. 이 때 중요한 것은, unmarshalling할 때, marshalling(override fun writeToParcel(parcel: Parcel, flags: Int) {...})과정에서 쓴 순서와 동일하게 작성해 줘야함.
+ 마지막으로, unmarshalling이 있으면, marshalling과정이 있을 것이다. writeToParcel()을 통해 구현하는데, 이 때 중요한 것은, unmarshalling할 때, marshalling 과정에서 쓴 순서와 동일하게 작성해 줘야함.
