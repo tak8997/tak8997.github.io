@@ -25,6 +25,7 @@ inline을 쓸 때 주의점이 있다.
     }
     
 위 결과는 
+
 doSomething start
 
 doSomethingElse
@@ -71,5 +72,6 @@ doSomething end
 모두 잘 찍힌다.
 
 참고자료 : 
+
 https://medium.com/@tferreirap/kotlin-quick-look-at-inline-noinline-and-crossinline-e62e8833db1f
 https://blog.mindorks.com/understanding-inline-noinline-and-crossinline-in-kotlin
