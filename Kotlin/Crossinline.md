@@ -26,10 +26,12 @@ inline을 쓸 때 주의점이 있다.
     
 위 결과는 
 doSomething start
+
 doSomethingElse
+
 만 찍힌다. 즉, doSomething end는 찍히지 않는 것이다.
 decompile을 해봐도 doSomething end는 보이지 않는다.
-이것이 non-local returns의 개념이다. (inline돤)lamda 내부의 리턴이 아니라 외부 doSomething() 을 리턴한다.
+이것이 non-local returns의 개념이다. (inline)lamda 내부의 리턴이 아니라 외부 doSomething() 을 리턴한다.
 
 그렇다면 crossinline이 뭔지를 살펴보자
 
@@ -61,7 +63,9 @@ return이 허용되지 않는다는 것이다. return을 쓰면 컴파일 에러
 이제 실행해보면 결과는
 
 doSomething start
+
 doSomethingElse
+
 doSomething end
 
 모두 잘 찍힌다.
