@@ -8,15 +8,15 @@
 
 1. class vs type
  
- 
-    ╔═════════════╦═════════════════╦
-    ║             ║ Class  ║ Type   ║
-    ╠═════════════╬════════╬════════╬
-    ║ String      ║ Yes    ║ Yes    ║
-    ║ String?     ║ No     ║ Yes    ║
-    ║ List        ║ Yes    ║ Yes    ║
-    ║ List<String>║ No     ║ Yes    ║
-    ╚═════════════╩════════╩════════╩
+
+      ╔═════════════╦═════════════════╦
+      ║             ║ Class  ║ Type   ║
+      ╠═════════════╬════════╬════════╬
+      ║ String      ║ Yes    ║ Yes    ║
+      ║ String?     ║ No     ║ Yes    ║
+      ║ List        ║ Yes    ║ Yes    ║
+      ║ List<String>║ No     ║ Yes    ║
+      ╚═════════════╩════════╩════════╩
  
  
 2. subclass vs subtype
