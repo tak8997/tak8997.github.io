@@ -190,7 +190,6 @@ Compare를 보자.
 이번에는 왜 이렇게 타입의 범위를 지정해야 하는지 조금 더 구체적으로 살펴보자.
 
     
-
-    
+참고 자료 : https://proandroiddev.com/understanding-generics-and-variance-in-kotlin-714c14564c47
 
 
