@@ -8,6 +8,7 @@
 
 1. class vs type
  
+ 
     ╔═════════════╦═════════════════╦
     ║             ║ Class  ║ Type   ║
     ╠═════════════╬════════╬════════╬
@@ -16,7 +17,8 @@
     ║ List        ║ Yes    ║ Yes    ║
     ║ List<String>║ No     ║ Yes    ║
     ╚═════════════╩════════╩════════╩
-    
+ 
+ 
 2. subclass vs subtype
 subclass가 성립하기 위해서는, 어떤 클래스를 상속해야한다. 예를 들어, Integer, Number가 있따고
 가정해보자. Integer은 Number를 상속한다. 그러므로 Integer는 Number의 서브클래스 이다.
