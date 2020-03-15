@@ -44,6 +44,7 @@ subtype의 예를 보자. Int는 Int?의 하위 타입이다. 그래서 Int?에 
     
 이런 클래스가 존재한다고 가정한다.
 
+
 1. Invariance(무공변)
 
 invariance를 살펴보자. 기본적으로 자바, 코틀린에서 타입 범위를 따로 지정하지 않으면 모든 제네릭 클래스는 무공변이다. 
@@ -62,6 +63,7 @@ Dog -> Animal
 List<Dog> ->x Animal
     
     
+    
 2. Convariance(공변)
 
 설명하기 전에 코틀린의 List는 immutable하다. 즉, 변경(추가, 삭제) 불가능 하다.
@@ -76,8 +78,9 @@ List<Dog>은 List<Animal>의 하위 타입이다.
 이렇게 타입 관계가 보존되는 것을 covariance(공변) 이라고 한다.
     
 Dog -> Animal
-List<Dog> -> List><Animal>
+List<Dog> -> List<Animal>
     
+
 
 3. Contravariance(반공변)
 
@@ -121,6 +124,66 @@ Compare<Animal>이 Compare<Spider>의 하위 타입 이라는 것이다.
 
 Spider -> Animal
 Compare<Animal> -> Compare<Spider>
+    
+    
+## 자바의 변성
+    
+자바에서 제네릭을 covariant, contravariant 하게 만들 수 있다.
+
+    List<Dog> dogs = new ArrayList<>();
+    List<? extends Animal> animals = dogs;
+   
+extends가 타입을 제한함으로써 Animal과 Dog간의 관계를 covariant(공변) 하게 만든다.
+
+    Compare<Animal> animalCompare = (first, second) -> first.getSize() — second.getSize();
+    Compare<? super Spider> spiderCompare = animalCompare;
+    
+super로 타입을 제한함으로써 Animal과 Dog간의 관계를 contravariant(반공변) 하게 만들 수 있다.
+
+또한, 이렇게 사용하는 지점에서 변성을 결정하는 것을 use-site variance(사용 지점 변성)이라고 말한다.
+
+## 코틀린의 변성
+
+코틀린에서 역시 가능하다. 
+List를 보면
+
+    interface List<out E> {
+      fun get(index: Int): E
+    }
+    
+out키워드의 의미는 List안의 메소드들은 오직 E type을 리턴만 하고 E type을 메소드의 인자로 받지 않는 다는 것을 뜻한다.
+(읽기만 가능, 쓰기는 불가능. (보충 필요))
+이것이 List를 covariant(공변)하게 만든다.
+
+
+Compare를 보자.
+
+    interface Compare<in T> {
+      fun compare(first: T, second: T): Int
+    }
+    
+이번에는 in이 있다. in키워드의 의미는 Compare안의 메소드들은 T type을 인자로만 받고 T type을 리턴하지 않는 다는 뜻이다.
+(쓰기만 가능, 읽기는 불가능. (보충 필요))
+이것이 Compare를 contravariant(반공변)하게 만든다.
+
+또한, 코틀린에서는 클래스를 선언하는 시점에 변성을 고려하게 만들었다. 사용하는 지점이 아닌.
+이것을 declaration-site variance(선언 지점 변성)이라고 한다.
+
+참고 표 :
+
+    ╔═════════════╦═════════════════╦══════════════════╦═══════════════════╦
+    ║             ║ Covariance      ║ Contravariance   ║ Invariance        ║
+    ╠═════════════╬═════════════════╬══════════════════╬═══════════════════╬
+    ║ Purpose     ║ Producer        ║ Consumer         ║Producer + Consumer║
+    ║ Example     ║ ImmutableList   ║ Compare          ║MutableList        ║
+    ║ Java        ║ extends         ║ super            ║                   ║
+    ║ Kotlin      ║ out             ║ in               ║                   ║
+    ╚═════════════╩═════════════════╩══════════════════╩═══════════════════╩
+
+
+이렇게 변성에 대한 개념을 알아봤고, 왜 변성이 필요한지에 대해서도 간략히 살펴봤다.
+이번에는 왜 이렇게 타입의 범위를 지정해야 하는지 조금 더 구체적으로 살펴보자.
+
     
 
     
