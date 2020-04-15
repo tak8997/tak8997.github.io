@@ -14,3 +14,7 @@ volatile을 써서 이러한 불일치를 해결하는 것 입니다.
 
 또한, volatile은 메인 메모리에서 read/write하기 때문에, cpu cache에서 read/write할 때 보다 상대적으로 더 오래 걸립니다.
 이러한 측면을 잘 고려해서 사용해야 할 것 입니다.
+
+
+참고자료 : 
+http://tutorials.jenkov.com/java-concurrency/volatile.html
