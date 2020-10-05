@@ -60,9 +60,11 @@ invariance를 살펴보자. 기본적으로 자바, 코틀린에서 타입 범�
     List<Animal> animalList = dogList; // compile error
     
 컴파일 에러가 나오는 것을 볼 수 있다. 이렇듯 기본적으로 성립하지 않는다.
-죽, List<Dog>을 List<Animal>에 할당 할 수 없다. 이를 무공변이라 한다.
+죽, List`<Dog>`을 List<Animal>에 할당 할 수 없다. 이를 무공변이라 한다.
+이게 된다면, 꺼낼 때 classCastException이 발생할 수 있음
 
 Dog -> Animal
+
 List<Dog> ->x Animal
     
     
