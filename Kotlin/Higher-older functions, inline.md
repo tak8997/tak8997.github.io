@@ -11,7 +11,7 @@ Document에 있는 글이다.
 그렇다면 고차 함수가 무엇인지 알아보는게 순서인거 같다.
 
 ## Higher-order functions
-고차함수는 함수를 파라미터로 받 함수를 리턴하는 함수이다.
+고차함수는 함수를 파라미터로 받거나 혹은 함수를 리턴하는 함수이다.
 예를 들어,
 
     fun <T> ArrayList<T>.filterOnCondition(condition: (T) -> Boolean): ArrayList<T>{
