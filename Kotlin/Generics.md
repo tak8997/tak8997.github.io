@@ -195,5 +195,6 @@ PE, CS -> out, in -> read only, write only
 
     
 참고 자료 : https://proandroiddev.com/understanding-generics-and-variance-in-kotlin-714c14564c47
+https://medium.com/tompee/idiomatic-kotlin-variance-82355d9a71df
 
 
