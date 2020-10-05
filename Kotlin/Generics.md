@@ -60,12 +60,12 @@ invariance를 살펴보자. 기본적으로 자바, 코틀린에서 타입 범�
     List<Animal> animalList = dogList; // compile error
     
 컴파일 에러가 나오는 것을 볼 수 있다. 이렇듯 기본적으로 성립하지 않는다.
-죽, List`<Dog>`을 List<Animal>에 할당 할 수 없다. 이를 무공변이라 한다.
+죽, List`<Dog>`을 List`<Animal>`에 할당 할 수 없다. 이를 무공변이라 한다.
 이게 된다면, 꺼낼 때 classCastException이 발생할 수 있음
 
 Dog -> Animal
 
-List<Dog> ->x Animal
+List`<Dog>` ->x Animal
     
     
     
@@ -79,7 +79,7 @@ List<Dog> ->x Animal
   
 List가 변경 불가능 하기 때문에, 위의 코드는 컴파일 에러가 나지 않는다.
 Dog은 Animal의 하위 타입이고,
-List<Dog>은 List<Animal>의 하위 타입이다.
+List`<Dog>`은 List`<Animal>`의 하위 타입이다.
 이렇게 타입 관계가 보존되는 것을 covariance(공변) 이라고 한다.
     
 Dog -> Animal
@@ -123,12 +123,13 @@ dogs, spiders 모두에게 효과적일 것이다.
 컴파일 에러 없이 잘 돌아간다.
 그리고 이를 통해 볼 수 있는 것은
 Spider가 Animal의 하위 타입인데, 
-Compare<Animal>이 Compare<Spider>의 하위 타입 이라는 것이다.
+Compare`<Animal>`이 Compare`<Spider>`의 하위 타입 이라는 것이다.
 즉, 타입 관계가 역전 되었다!
 이것을 contravariance(반공변) 이라고 한다.
 
 Spider -> Animal
-Compare<Animal> -> Compare<Spider>
+
+Compare`<Animal>` -> Compare`<Spider>`
     
     
 ## 자바의 변성
