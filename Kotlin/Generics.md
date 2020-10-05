@@ -60,7 +60,7 @@ invariance를 살펴보자. 기본적으로 자바, 코틀린에서 타입 범�
     List<Animal> animalList = dogList; // compile error
     
 컴파일 에러가 나오는 것을 볼 수 있다. 이렇듯 기본적으로 성립하지 않는다.
-죽, List`<Dog>`을 List`<Animal>`에 할당 할 수 없다. 이를 무공변이라 한다.
+즉, List`<Dog>`을 List`<Animal>`에 할당 할 수 없다. 이를 무공변이라 한다.
 이게 된다면, 꺼낼 때 classCastException이 발생할 수 있음
 
 Dog -> Animal
@@ -157,10 +157,7 @@ List를 보면
       fun get(index: Int): E
     }
     
-out키워드의 의미는 List안의 메소드들은 오직 E type을 리턴만 하고 E type을 메소드의 인자로 받지 않는 다는 것을 뜻한다.
-
-(읽기만 가능, 쓰기는 불가능. (보충 필요))
-
+out키워드의 의미는 List안의 메소드들은 오직 E type을 리턴만 하고 E type을 메소드의 인자로 받지 않는 다는 것을 뜻한다(E type 파라미터를 쓸려고 하면 컴파일 에러).
 이것이 List를 covariant(공변)하게 만든다.
 
 
@@ -171,14 +168,15 @@ Compare를 보자.
     }
     
 이번에는 in이 있다. in키워드의 의미는 Compare안의 메소드들은 T type을 인자로만 받고 T type을 리턴하지 않는 다는 뜻이다.
-
-(쓰기만 가능, 읽기는 불가능. (보충 필요))
-
 이것이 Compare를 contravariant(반공변)하게 만든다.
 
 또한, 코틀린에서는 클래스를 선언하는 시점에 변성을 고려하게 만들었다. 사용하는 지점이 아닌.
 
 이것을 declaration-site variance(선언 지점 변성)이라고 한다.
+
+PE, CS -> out, in -> read only, write only
+
+
 
 참고 표 :
 
@@ -193,7 +191,7 @@ Compare를 보자.
 
 
 이렇게 변성에 대한 개념을 알아봤고, 왜 변성이 필요한지에 대해서도 간략히 살펴봤다.
-이번에는 왜 이렇게 타입의 범위를 지정해야 하는지 조금 더 구체적으로 살펴보자.
+
 
     
 참고 자료 : https://proandroiddev.com/understanding-generics-and-variance-in-kotlin-714c14564c47
