@@ -89,6 +89,7 @@ List<Dog> -> List<Animal>
 
 3. Contravariance(반공변)
 
+1)
 동물들을 비교하고 싶은 상황이 생겼다고 가정하자.
 interface Compare<T>와 그 메소드 compare(T item1, T item2)가 있다.
 알다시피 어떤 아이템이 먼저 오게할지 결정해주는 메소드이다.
@@ -131,6 +132,27 @@ Spider -> Animal
 
 Compare`<Animal>` -> Compare`<Spider>`
     
+
+2)
+또 다른 예시를 보자.
+
+    public static void contravarianceProblem() {
+        List<? super Number> numberList = getNumberList();
+        numberList.add(new Long(12));
+        numberList.add(new Double(12));
+
+        Number number = numberList.get(0); // compile error
+    }
+
+    public static List<? super Number> getNumberList() {
+        List<Object> objects = new ArrayList<>();
+        objects.add("");
+        return objects;
+    }
+    
+여기서 compile error를 내지 않는다면, 큰 문제가 생길 수 있다. 첫 번째 index를 꺼내면, Object가 Number에 들어가기 때문이다.
+그래서 이런것을 막기 위해 읽기를 금지하고 write only로 제한한다. 
+
     
 ## 자바의 변성
     
@@ -196,5 +218,6 @@ PE, CS -> out, in -> read only, write only
     
 참고 자료 : https://proandroiddev.com/understanding-generics-and-variance-in-kotlin-714c14564c47
 https://medium.com/tompee/idiomatic-kotlin-variance-82355d9a71df
+https://deep-dive-dev.tistory.com/39
 
 
