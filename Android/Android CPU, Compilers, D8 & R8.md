@@ -181,6 +181,16 @@ I 는 integer 2번
 이제 D8, R8을 알아보자. 그 전에 android jvm 달빅을 다시 한번 볼 것이다.
 
 
+## Android build process
+
+![android-build-process](https://user-images.githubusercontent.com/19990905/95824354-1bdb8d80-0d6a-11eb-997c-c407f635be35.png)
+
+**.java, .kt 파일들은 자바, 코틀린 컴파일러에 의해 .class파일을 만든다. .class파일들은 덱스 컴파일러에 의해 .dex로 컴파일 된다. 마지막으로, 
+.apk 파일로 패키지 된다. **
+
+
+
+
 
 
 
