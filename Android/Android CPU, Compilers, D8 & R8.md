@@ -139,6 +139,50 @@ I 는 integer 2번
 메소드가 인스턴스의 메소드면, 디폴트 파라미터 'this'가 레지스터에 항상 저장된다. 그것이 p0 이다.
 이는 메소드가 static이면, p0 파라미터는 다른 의미를 가지는 것이다.
 
+또 다른 예를보자.
+
+    const/16 v0, 0x8                      ;int[] size 8
+    new-array v0, v0, [I                  ;v0 = new int[]
+    fill-array-data v0, :array_12         ;fill data
+    nop
+    :array_12
+    .array-data 4
+            0x4
+            0x7
+            0x1
+            0x8
+            0xa
+            0x2
+            0x1
+            0x5
+    .end array-data
+
+자바코드는 아래와 같다.
+
+    int array[] = {
+         4, 7, 1, 8, 10, 2, 1, 5
+    };
+    
+마지막 예시를 보자.
+
+    new-instance p1, Lcom/android/academy/DexExample;
+                ;p1 = new DexExample();
+    invoke-direct {p1}, Lcom/android/academy/DexExample;-><init>()V
+                ;calling to constructor: public DexExample(){ ... }
+    const/4 v1, 0x5          ;v1=5
+    invoke-virtual {p1, v0, v1}, Lcom/android/academy/DexExample;->swap([II)V .           ;p1.swap(v0,v1)
+   
+자바코드는 아래와 같다.
+
+    DexExample dex = new DexExample();
+    dex.swap(array,5);
+    
+
+이제 D8, R8을 알아보자. 그 전에 android jvm 달빅을 다시 한번 볼 것이다.
+
+
+
+
 
 
 
