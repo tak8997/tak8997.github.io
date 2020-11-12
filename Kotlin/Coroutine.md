@@ -13,6 +13,12 @@ it is possible to achieve concurrency without creating expensive threads
 A framework to manage concurrency in a more performant and simple way with its lightweight thread which is written on top of the actual threading framework to get the most out of it by taking the advantage of cooperative nature of functions.
 
 
+### Continuations?
+
+함수가 suspend되면, suspend된 코루틴의 정보, 상태가 있다. 코루틴이 suspend될 때마다, continuation에 상태를 저장한다. 코루틴이 resume되면, continuation은 남은 코루틴 실행을 계속하기에 충분한 정보를 가지고 있다. continuation은 코루틴 컨텍스트와 코루틴의 성공 혹은 실패를 보고할 완료 콜백으로 이루어져 있다.
+
+The Continuation interface consists of a CoroutineContext and a completion callback used to report the success or failure of the coroutine.
+
 ### Structured Concurruncy
 
 nested 코루틴 스코프를 관리하는 기법. 코루틴 안에 또 다른 코루틴 스코프를 만들어서 관리하는 기법.
@@ -28,8 +34,8 @@ https://kotlinlang.org/docs/reference/coroutines/basics.html#structured-concurre
 
 coroutineScope and supervisorScope will wait for child coroutines to complete.
 coroutineScope, supervisorScope 차이 : child코루틴 들 간에 에러 전파 여부.
-coroutineScope는 에러 던져지면 즉시 child, parent 모두 전파.
-supervisorScope는 에러 던져지면 child들에게만 전파(단, 다른 코루틴이 끝날때까지 대기). 부모는 cancecl안됨.
+coroutineScope는 에러 던져지면 즉시 취소시키고 child, parent 모두 전파.
+supervisorScope는 에러 던져지면 child들에게만 전파(단, 다른 코루틴들을 취소시키지 않고 끝날때까지 대기). 부모는 cancecl안됨.
 https://tourspace.tistory.com/155
 https://blog.mindorks.com/mastering-kotlin-coroutines-in-android-step-by-step-guide
 https://stackoverflow.com/questions/53577907/when-to-use-coroutinescope-vs-supervisorscope
