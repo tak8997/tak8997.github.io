@@ -45,9 +45,14 @@ https://proandroiddev.com/managing-exceptions-in-nested-coroutine-scopes-9f23fd8
 ### Coroutine Scope, Coroutine Context
 
 CoroutineScope -
+코루틴 생성
 CoroutineScope는 coroutineContext를 가지고있는 interface이다.
 all coroutines run inside a CoroutineScope. A scope controls the lifetime of coroutines through its job -> coroutine 상태 추적
 https://medium.com/androiddevelopers/coroutines-on-android-part-ii-getting-started-3bff117176dd
+
+CoroutineContext -
+코루틴 정보
+Job, CoroutineDispatcher, CoroutineName, CoroutineExceptionHandler(포착되지 않은 예외 처리)
 
 There is also an interface called CoroutineScope that consists of a sole property — val coroutineContext: CoroutineContext. It has nothing else but a context. So, why it exists and how is it different from a context itself? The difference between a context and a scope is in their intended purpose.
 ->Every coroutine builder is an extension on CoroutineScope and inherits its coroutineContext to automatically propagate both context elements and cancellation.
@@ -59,4 +64,14 @@ https://proandroiddev.com/demystifying-coroutinecontext-1ce5b68407ad
 
 ### Job
 A coroutine itself is represented by a Job. It is responsible for coroutine’s lifecycle, cancellation, and parent-child relations. A current job can be retrieved from a current coroutine’s context:
+즉, 코루틴의 수명 주기를 제어
+
+- 자식이 실패하면, 다른 자식들에게 실패 전파
+- 실패를 통보받으면, 부모에게 전달
+
+### SupervisorJob
+
+- 자식이 실패해도 다른 자식들에게 영향을 미치지 않음
+- 실패를 통보받아도, 그 스코프는 아무것도 하지 않음. 위로 전달x
+
 
