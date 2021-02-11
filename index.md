@@ -1,5 +1,3 @@
-#### Lee ByungTak
- 
 - Android Developer
 - Email : tak8997@gmail.com
 - Github : github.com/tak8997
