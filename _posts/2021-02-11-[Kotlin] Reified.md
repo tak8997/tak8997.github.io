@@ -1,5 +1,7 @@
 # Reified
 
+</br>
+
 ## Type Erasure 배경지식 먼저 알아보자.
 
 자바에는 Type Erasure라는게 있다. runtime에 인스턴스의 type을 제거하는 것이다.
@@ -23,6 +25,8 @@
 여기까지 배경지식으로 알아 놓고. Reified를 알아보자.
 다른 예를 통해 보자.
 
+</br>
+
 ## reified 없이 접근
 
     fun <T> String.toKotlinObject(): T {
@@ -33,6 +37,8 @@
 readValue 메소드는 파싱해야되는 JsonObject타입을 두번째 인자에서 받는다.
 우리가 Class의 타입 T를 얻으려고 하면, "Cannot use 'T' as reified type parameter. Use a class instead"
 이런식의 에러를 낸다. 
+
+</br>
 
 ## Class Type을 써서 해결
 
@@ -50,6 +56,8 @@ readValue 메소드는 파싱해야되는 JsonObject타입을 두번째 인자�
     json.toKotlinObject(MyJsonType::class)
     
 이렇게 되어있다.
+    
+</br>    
     
 ## reified를 써서 코틀린 식으로 해결
 
@@ -73,6 +81,8 @@ inline + reified를 써서 더 간단히 해결가능하다.
 
 마지막, 주의할점.
 inline + reified 함수는 자바코드에서 호출할 수 없다.
+
+</br>
 
 참고 :
 https://umbum.tistory.com/611
