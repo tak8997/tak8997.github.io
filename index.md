@@ -14,7 +14,7 @@
 
 # Skills
 
-Android : kotlin, mvvm, coroutine(knowledgeable), rxjava2, retrofit2, dagger2, mvvm, databinding, aac, glide
+Android : kotlin, mvvm, coroutine(knowledgeable), rxjava2, retrofit2, dagger2, mvvm, databinding, aac, glide, unit test
 
 <br/>
 
@@ -31,6 +31,8 @@ Android : kotlin, mvvm, coroutine(knowledgeable), rxjava2, retrofit2, dagger2, m
    - EMI 대출 서비스 셋업부터 개발 및 출시
    - CashLoan 대출 서비스 연매출 약 187억
    - RepayLater 상환 서비스 셋업부터 개발 및 출시. 연매출 약 39억
+   - ui overdraw, view hierarchy 개선
+   - memory leak 개선
    - 그 외 유지보수, 리팩토링, 테스트 도입
 
 
@@ -51,7 +53,8 @@ Android : kotlin, mvvm, coroutine(knowledgeable), rxjava2, retrofit2, dagger2, m
 # Other Activities
 
 - Fun.D 사이드 프로젝트 활동
-- BooseCamp iOS과정
+- BoostCamp iOS과정
 - BoostCourse iOS과정 : 부스트코스 에이스 수료
 - SKT T Academy Android개발자 과정 : 대상 수상
 - MashUp 연합 IT동아리 활동
+- 대학교 교내 동아리 활동
