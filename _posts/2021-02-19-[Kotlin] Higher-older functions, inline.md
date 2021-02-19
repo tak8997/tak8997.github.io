@@ -10,6 +10,8 @@ Document에 있는 글이다.
 즉, 고차 함수의 런타임 패널티를 없애기 위해서 쓴다.
 그렇다면 고차 함수가 무엇인지 알아보는게 순서인거 같다.
 
+<br/>
+
 ## Higher-order functions
 고차함수는 함수를 파라미터로 받거나 혹은 함수를 리턴하는 함수이다.
 예를 들어,
@@ -55,7 +57,12 @@ condition: (T) -> Boolean
 
 그럼 inline함수를 다시 알아보도록 하겠다.
 
+
+<br/>
+
+
 ## Inline
+
 위에서 고차함수의 런타임 패널티를 없앤다고 하였다.
 그렇다면 Inline이 뭔지 간단히 예를 들어서 보자.
 
@@ -106,6 +113,8 @@ condition: (T) -> Boolean
 doSomethingElse의 코드가 doSomething()부분에 카피되어 삽입되어 있는 것을 볼 수 있다.
 즉, doSomthing()은 더 이상 doSomethingElse()를 호출하지 않는다.
 이게 인라인함수를 붙였을때의 차이이다.
+
+<br/>
 
 이것이 고차함수와 사용했을 때 왜 이득이 있는지 살펴보자
 먼저, inline을 붙이지 말아보자.
