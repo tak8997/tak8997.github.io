@@ -1,6 +1,10 @@
 
 # Android CPU, Compilers, D8 & R8
 
+
+<br/>
+
+
 목표 :
 1. JVM과 안드로이드와의 연관성
 2. 바이트코드 읽기
@@ -9,7 +13,17 @@
 
 
 
+<br/>
+
+
+
+
 ## Inside JVM
+
+
+<br/>
+
+
 
 #### ClassLoader
 컴파일 된 자바파일(.class), linking, 손상된 바이트 코드 감지, 정적 변수, 코드 할당 및 초기화
@@ -22,8 +36,13 @@
 
 
 
+<br/>
+
+
 
 ## Interpreter & JIT
+
+
 프로그램을 실행 할 때 마다, Interpreter 바이트코들를 기계 코드로 번역한다. Interpreter의 단점은 어떤 메소드가 호출 되서 번역할 때, 여러번 호출되도 호출 될 떄마다 반복적으로 번역한다는 것이다.
 
 Jit은 이러한 단점을 보완시켜준다. Execution Engine이 Interpreter의 도움으로 바이트코드를 변환시킨다. 하지만, 반복되는 코드가 있다면, Jit 컴파일러를 사용한다.
@@ -71,6 +90,11 @@ android dex compiler
 기존 자바 바이트코드는 스택 베이스이다(모든 변수들이 스택에 저장), 반면, 덱스 바이트코드는 레지스터 기반이다(모든 변수들이 레지스터에 저장).
 덱스 방식이 기존 방식보다 더 효율적이고 더 적은 공간을 필요로 한다. 이러한 덱스 바이트코드는 달빅 이라는 안드로이드 가상 머신에서 실행된다.
 **달빅은 덱스 컴파일러에 의해 컴파일 된 바이트코드를 로드하는 것이다.** 실행은 기존 JVM과 비슷하게 JIT & Interpreter를 사용한다.
+
+
+
+<br/>
+
 
 
 ## Bytecode?
@@ -181,6 +205,11 @@ I 는 integer 2번
 이제 D8, R8을 알아보자. 그 전에 android jvm 달빅을 다시 한번 볼 것이다.
 
 
+
+<br/>
+
+
+
 ## Android build process
 
 ![android-build-process](https://user-images.githubusercontent.com/19990905/95824354-1bdb8d80-0d6a-11eb-997c-c407f635be35.png)
@@ -192,6 +221,10 @@ I 는 integer 2번
 앱을 실행하면, 달빅 프로세스르 시작한다. 즉, dex코드가 로드 되고 Interpreter에 의해 번역되고 JIT에 의해 런타임에 컴파일 된다. 
 
 ![dalvik-process](https://user-images.githubusercontent.com/19990905/96329147-26a56380-1085-11eb-9009-28baf118f856.png)
+
+
+
+<br/>
 
 
 
@@ -231,6 +264,11 @@ Interpreter, JIT을 실행시키지 않는다는 것이다.** 즉, .oat 라는 �
 디바이스가 유휴 상태이거나 와이파이에 연결되어 있다면, 구글플레이 서비스들을 통해 컴파일 과정 파일들을 공유하는 것이다.
 나중에, 똑같은 디바이스에 다른유저가 플레이 스토어에서 앱을 다운로드하면, 디바이스는 이러한 컴파일 과정들을 받아서 aot가 컴파일을 수행하도록 한다. 결과적으로 처음부터 최적화된 앱을 사용한다.
 
+
+<br/>
+
+
+
 ## 그래서 r8과 어떻게 연결되는 것일까?
 
 구글은 런타임 컴파일 과정에 많은 개선을 이뤘다. 하지만 여전히 Dalvik/ART 컴파일러에 의해 지원하는 제한된 수의 opcode를 가지는 .dex세상에 살고 있다(달빅은 jvm이 아니고 달빅 바이트코드는 jvm바이트코드와는 다르기 때문에).
@@ -243,6 +281,11 @@ Interpreter, JIT을 실행시키지 않는다는 것이다.** 즉, .oat 라는 �
 위는 java .class desugar transformation 과정이다.
 
 
+
+<br/>
+
+
+
 ## Dope8
 
 이러한 문제 해결을 위해, 안스 3.2에서 D8 이라고 불리는 덱스 컴파일러로 교체했다. desugaring transformation을 제거하고 .class2dex 컴파일 과정의 일부로 만들어서 더 빠른 빌드 시간을 만드는 이루는것이다.
@@ -252,9 +295,19 @@ Interpreter, JIT을 실행시키지 않는다는 것이다.** 즉, .oat 라는 �
 
 이게 끝이아니다.
 
+
+<br/>
+
+
+
 # android.enableR8 = true
 
 r8은 d8의 스핀오프다. 둘은 똑같은 코드베이스를 공유한다. 그러나 r8 추가적인 문제들을 해결했다. r8은 d8과 같이 자바8 기능들을 Dalvik/ART에서 사용할 수 있게 했다. 뿐만 아니라...
+
+
+<br/>
+
+
 
 # R8 helps to use correct opcodes
 
@@ -262,6 +315,11 @@ r8은 d8의 스핀오프다. 둘은 똑같은 코드베이스를 공유한다. �
 r8의 가장큰 장점은 .dex의 최적화다. 특정 디바이스/api 지원에 필요한 opcodes만 남긴다. 아래와 같이
 
 ![image](https://user-images.githubusercontent.com/19990905/97775122-7dd92700-1ba1-11eb-9561-74379befe2d3.png)
+
+
+<br/>
+
+
 
 # R8 replace Proguard?
 
@@ -271,6 +329,11 @@ r8의 가장큰 장점은 .dex의 최적화다. 특정 디바이스/api 지원�
 
 r8은 프로가드가 아니다. 프로가드가 하는 일의 일부분만 지원하는 새로운 실험 도구다.
 (나중에 읽어보기 : https://www.guardsquare.com/en/blog/proguard-and-r8)
+
+
+<br/>
+
+
 
 # R8 is more kotlin friendly
 
@@ -293,6 +356,8 @@ r8은 프로가드가 아니다. 프로가드가 하는 일의 일부분만 지�
 
 끝.
 
+
+참고 : 
 
 https://proandroiddev.com/android-cpu-compilers-d8-r8-a3aa2bfbc109
 
