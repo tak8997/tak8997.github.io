@@ -4,6 +4,10 @@ inline을 쓸 때 주의점이 있다.
 'non-local returns'를 초래한다는 것이다.
 그렇다면 non-local returns 란 무엇일까?
 
+
+<br/>
+
+
 ## non-local returns
 
 아래와 같은 코드가 있다.
@@ -35,6 +39,8 @@ decompile을 해봐도 doSomething end는 보이지 않는다.
 이것이 non-local returns의 개념이다. (inline)lamda 내부의 리턴이 아니라 외부 doSomething() 을 리턴한다.
 
 그렇다면 crossinline이 뭔지를 살펴보자
+
+<br/>
 
 ## crossinline
 
@@ -70,6 +76,10 @@ doSomethingElse
 doSomething end
 
 모두 잘 찍힌다.
+
+
+<br/>
+
 
 참고자료 : 
 
