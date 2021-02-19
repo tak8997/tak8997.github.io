@@ -12,6 +12,12 @@
     }).get(getModelClass())
         
 요런식으로요.
+
+
+<br/>
+<br/>
+
+
 이제 dagger2를 활용해 뷰모델을 초기화하는 과정부터 살펴보겠습니다. 
 제 BaseActivity 에는 요런 코드가 있습니다.
 
@@ -72,6 +78,8 @@ ViewModel을 상속하는 Class가 Key,
 Provider<ViewModel>(provider : 의존성 주입 클래스를 제공하고 이를 인스턴스화 할 수 있는 Dagger2 특정 클래스)이 Value 형태로 되어있습니다.
 이제 create() 메소드를 통해 Activity, Fragment에서 호출한 ViewModel타입이 리턴 됩니다. 여기서 어떻게 ViewModel 타입이 결정 될 수 있을까요??
 
+<br/>
+
 답은 dagger2가 제공하는 Provider 덕분입니다. dagger2는 주어진 키에 Provider를 연결하고 Map에 연결해 줄 수 있습니다. 이게 가능한 이유는
 @IntoMap 어노테이션 덕분입니다.
 @IntoMap은 키와 연결된 값을 리턴시키는 메소드에 어노테이션을 붙여서 활용됩니다. 즉, MainModule쪽을 봐보면
@@ -91,6 +99,8 @@ Provider<ViewModel>(provider : 의존성 주입 클래스를 제공하고 이를
     
 이렇게 되어있는데, @MapKey는 'KClass<out ViewModel> 객체를 키 타입으로 한다' 정도로 알면 되겠습니다.
 여기서는 MainViewModel.class가 Key로 Provider<MainViewModel>이 Value가 될 것 입니다.
+
+<br/>
 
 그럼 이제 다시 ViewModelProvider.Factory.create() 메소드를 자세히 관찰해 볼 수 있습니다. create(modelClass: Class<T>) 의 modelClass
 를 통해서 우리는 Provider객체를 가져올 수 있습니다.
