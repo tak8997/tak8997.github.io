@@ -31,6 +31,7 @@ Android : kotlin, mvvm, coroutine(knowledgeable), rxjava2, retrofit2, dagger2, m
    - EMI 대출 서비스 셋업부터 개발 및 출시
    - CashLoan 대출 서비스 연매출 약 187억
    - RepayLater 상환 서비스 셋업부터 개발 및 출시. 연매출 약 39억
+   - 부분 상환 서비스 셋업부터 개발 및 출시.
    - ui overdraw, view hierarchy 개선
    - memory leak 개선
    - 그 외 유지보수, 리팩토링, 테스트 도입
