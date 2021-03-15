@@ -4,9 +4,9 @@
 
 ## What are Spans?
 
-SpannedString : 생성된 후 글자, markup을 변경할 필요가 없을 때 사용된다.
-SpannableString : 생성된 후 글자의 변경이 필요 없을 때, markup 변경이 필요할 때 사용된다.
-SpannableStringBuilder : 생성된 후 글자, markup을 둘 다 변경할 필요가 있을 때 사용된다.
+ - SpannedString : 생성된 후 글자, markup을 변경할 필요가 없을 때 사용된다.
+ - SpannableString : 생성된 후 글자의 변경이 필요 없을 때, markup 변경이 필요할 때 사용된다.
+ - SpannableStringBuilder : 생성된 후 글자, markup을 둘 다 변경할 필요가 있을 때 사용된다.
 
 
 <br/>
