@@ -18,8 +18,8 @@
 하지만, 예외가 발생해도 다른 자식 코루틴, 혹은 부모 코루틴은 취소하기 싫은 수도 있다.
 그럴 경우??
 
-</br>
-</br>
+<br/>
+<br/>
 
 - ### SupervisorJob의 예외처리
 
@@ -61,7 +61,7 @@ supervisorScope는 SupervisorJob을 가지고 스코프를 만든다. 당연히 
 - ### Who's my parent?
 
 
-</br>
+<br/>
 
 
     val scope = CoroutineScope(Job())
@@ -90,17 +90,17 @@ SupervisorJob은 scope.launch의 부모다(이 경우에는 SupervisorJob은 아
 SupervisorJob을 코루틴 빌더의 파라미터로 넘기면 예상한대로 취소가 되지 않을 것이다.
 
 
-</br>
-</br>
+<br/>
+<br/>
 
 
 - ### Launch, Async에 따른 Exception Handling 비교
 
-</br>
+<br/>
 
 #### Launch 
 
-</br>
+<br/>
 
     scope.launch {
         try {
@@ -188,14 +188,13 @@ Job은 부모로 예외를 전파하기 때문에 catch에 걸리지 않는다.
 마지막으로, CoroutineExceptionHandler에 대해 알아보자.
 
 
-</br>
-</br>
+<br/>
+<br/>
 
 
 - ### CoroutineExceptionHandler
 
-</br>
-
+<br/>
 
 CoroutineExceptionHandler는 'handle uncaught exceptions' 이다.
 
@@ -234,14 +233,13 @@ CoroutineExceptionHandler는 'handle uncaught exceptions' 이다.
 앞서 반복했듯이, 예외는 부모에게 전파되는데, 부모에는 어떠한 exception handling을 하고 있지 않기 때문에 예외를 캐치할 수 없다.
 
 
-</br>
-</br>
+<br/>
+<br/>
 
 
 참고 자료 :
 
 https://medium.com/androiddevelopers/exceptions-in-coroutines-ce8da1ec060c
-
 https://www.lukaslechner.com/why-exception-handling-with-kotlin-coroutines-is-so-hard-and-how-to-successfully-master-it/
 
 
